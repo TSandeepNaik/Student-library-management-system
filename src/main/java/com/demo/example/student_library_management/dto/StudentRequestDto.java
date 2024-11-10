@@ -16,4 +16,4 @@ public class StudentRequestDto {
     private int age;
     private String address;
     private String mobile;
-}
+ }

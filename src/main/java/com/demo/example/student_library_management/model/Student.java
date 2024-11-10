@@ -39,6 +39,5 @@ public class Student {
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)  //mapped by the same name given in the card class while
     // creating the student object
     //cascade used if we do anything in card regarding student class it will automatcally updated in student class also
-
     private Card card;
 }
