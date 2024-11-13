@@ -14,7 +14,7 @@ public class BookRequestDto {
     private Genre genre;   //it should be fixed like comedy drama action fiction etc
     //so we create enum for this and we change the data type to the enum name
     private  int pages;
-    private  String PublisherName;
+    private  String publisherName;  //don't use capital letters at the starting of the variable name it may give u null value
     private boolean issuedToStudent;
     private int authorId;
     private int cardId;

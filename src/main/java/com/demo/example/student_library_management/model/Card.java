@@ -2,6 +2,8 @@ package com.demo.example.student_library_management.model;
 
 
 import com.demo.example.student_library_management.Enums.Cardstatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,14 +43,20 @@ public class Card {
     @UpdateTimestamp        // it will add the time when card is updated
     private Date updatedDate;
 
+    @JsonBackReference   // it as soon as card prints in the student model class along with the student that will again come
+    //to card model class to print the card status it is loop so as soon as that comes to card class it will see the
+    //JsonBackReference and that will not print the card status again and go back to student  model class again
+    //it is simply telling that dont print card class refer back which is student class
     @OneToOne
     @JoinColumn
     private Student student;
 
+    @JsonManagedReference  //where ever u have mapped by add managed reference , join by add refer back
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL) //one card will have many books borrowed
     private List<Book> listOfBookForCard = new ArrayList<>();
     //list of books for the one card
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL) // if we delete in card it will automatically get deleted in transaction also
     private List<Transaction> listOfTransactions = new ArrayList<>();
     // one card can have list of transactions, it is one many relation

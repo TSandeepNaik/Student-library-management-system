@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class AuthorRequestDto {
 
-    private String name;
-    private String email;
-    private  String country;
-    private  double ratings;
+        private String name;
+        private String email;
+        private  String country;
+        private  double ratings;
 }

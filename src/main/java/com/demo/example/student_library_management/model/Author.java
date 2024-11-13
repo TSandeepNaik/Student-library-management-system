@@ -1,5 +1,6 @@
 package com.demo.example.student_library_management.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class Author {
     @Column(nullable = false)
     private  double ratings;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)  //here we are mapping the author with the book
     //and using the cascade if we update anything in this author class it will automatically update in the book also where
     //we use this author class as foreign key

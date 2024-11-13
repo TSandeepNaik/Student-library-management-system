@@ -1,6 +1,8 @@
 package com.demo.example.student_library_management.model;
 
 import com.demo.example.student_library_management.Enums.Genre;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,14 +42,17 @@ public class Book {
     @Column(name = "issued_to_student", nullable = false)
    private boolean issuedToStudent;
 
-    @ManyToOne   // from book to author is many-to-one relation
+    @JsonBackReference
+    @ManyToOne   // from book to author is many-to-one relation , one will go as a join column in many
     @JoinColumn  // to join the author id to book as a foreign key
     private Author author;
 
+    @JsonBackReference
     @ManyToOne  // many books can brought using one card
     @JoinColumn  //taking card id as a foreign key in the book class/table
     private Card card;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)  //one book can have many transaction
     private List<Transaction> listOfTransavtions = new ArrayList<>();
 

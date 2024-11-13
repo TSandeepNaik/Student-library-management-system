@@ -1,5 +1,6 @@
 package com.demo.example.student_library_management.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,7 @@ public class Student {
     @Column(nullable = false, unique = true)
   private String mobile;
 
+    @JsonManagedReference  // here it will see card class also managed here only so it will not loop it will print the details once
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)  //mapped by the same name given in the card class while
     // creating the student object
     //cascade used if we do anything in card regarding student class it will automatcally updated in student class also

@@ -9,6 +9,8 @@ import com.demo.example.student_library_management.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiece {
 
@@ -35,5 +37,49 @@ public class StudentServiece {
         // card will save automatically
 
         return "student and card are created";
+    }
+
+    //let us write the function for get all student and get student by id
+    public  List<Student> getAllStudent(){
+        List<Student> students = studentRepository.findAll();
+        return students;
+    }
+
+    //get by id
+    public  Student studentById(int studentId){   //here whatever we take the variable name is just for name sake it will take the value of id which we pass in controller
+       Student student = studentRepository.findById(studentId).get();
+       return student;
+    }
+
+    //delete student by id
+    public String deleteStudentById(int studentId){
+        studentRepository.deleteById(studentId);
+        return "student deleted with the id : "+studentId;
+    }
+
+    //to get the total count of students
+    public String countStudents(){
+       long totalCount = studentRepository.count();
+       return "the total count of students are :"+totalCount;
+    }
+
+    //to update the student
+    public String updateStudent(StudentRequestDto studentRequestDto, int studentId){
+        Student student = studentById(studentId);
+
+        if(student != null){  //if student is not null will override the same student
+          //First we convert this new  request dto
+            //here we should not create the new object we should use the old object to override the student details
+           //we don't use the converter again for the same class so will manually update the value
+            student.setName(studentRequestDto.getName());
+            student.setAge(studentRequestDto.getAge());
+            student.setEmail(studentRequestDto.getEmail());
+            student.setMobile(studentRequestDto.getMobile());
+            student.setAddress(studentRequestDto.getAddress());
+            studentRepository.save(student);
+           return "student get updated with the id :"+studentId;
+        }else{
+            return "student not found can not update";
+        }
     }
 }
